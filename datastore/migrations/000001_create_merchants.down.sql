@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS merchants CASCADE;
+DROP TYPE type;
+DROP TYPE role;
+-- DROP INDEX m_idx;
+-- DROP INDEX ux_idx;

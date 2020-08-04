@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX CONCURRENTLY merchant_email_index ON merchants (email);

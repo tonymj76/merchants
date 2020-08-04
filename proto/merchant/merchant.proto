@@ -1,0 +1,191 @@
+syntax = "proto3";
+option go_package = "proto/merchant";
+package merchant;
+import "google/protobuf/timestamp.proto";
+
+service MerchantService {
+	rpc CreateMerchant(CreateRequest) returns (Response) {};
+	rpc UpdateMerchant(UpdateRequest) returns (Response) {};
+	rpc GetMerchantByID(GetIdRequest) returns (Response) {};
+	rpc GetMerchants(Request) returns (Response) {};
+	rpc DeleteMerchantByID(GetIdRequest) returns (Response){};
+	rpc UpdatePassword(UpdatePasswordRequest) returns (UpdatePasswordResponse) {};
+	// rpc GetMerchantUserInfo(GetIdRequest) returns(Response);
+
+	//outlet methods
+	rpc CreateMerchantOutlet (OutletRequest) returns (Response);
+	rpc DeleteMerchantOutlet (GetOutletIdRequest) returns (Response);
+	rpc UpdateMerchantOutlet (UpdateOutletRequest) returns (Response);
+	rpc GetMerchantOutlets (GetOutletIdRequest) returns (Response);
+	rpc GetMerchantOutletByID (GetOutletIdRequest) returns (Response);
+
+	//Terminal methods
+	rpc CreateMerchantTerminal (TerminalRequest) returns (Response);
+	rpc DeleteMerchantTerminal (GetTerminalIdRequest) returns (Response);
+	rpc UpdateMerchantTerminal (UpdateTerminalRequest) returns (Response);
+	rpc GetMerchantTerminals (GetTerminalIdRequest) returns (Response);
+	rpc GetMerchantTerminalByID (GetTerminalIdRequest) returns (Response);
+}
+
+message TerminalRequest {
+	uint64 merchant_id = 1;
+	uint64 user_id = 2;
+	uint64 outlet_id = 3;
+	string name = 4;
+}
+
+message Terminal {
+	uint64 id = 1;
+	uint64 merchant_id = 2;
+	uint64 user_id = 3;
+	uint64 outlet_id = 4;
+	string name = 5;
+	google.protobuf.Timestamp created_at = 11;
+	google.protobuf.Timestamp updated_at = 12;
+}
+
+message OutletRequest {
+	uint64 merchant_id = 1;
+	int32 latitude = 2;
+	int32 longitude = 3;
+	PhoneNumber phone = 4;
+	bool available = 5;
+	uint64 city_id = 6;
+	uint64 country_id = 7;
+	string address = 8;
+	int32 position = 9;
+	string email = 10;
+	uint64 user_id = 11;
+}
+
+message Outlet {
+	uint64 id = 1;
+	uint64 merchant_id = 2;
+	int32 latitude = 3;
+	int32 longitude = 4;
+	PhoneNumber phone = 5;
+	bool available = 6;
+	uint64 city_id = 7;
+	uint64 country_id = 8;
+	string address = 9;
+	int32 position = 10;
+	google.protobuf.Timestamp created_at = 11;
+	google.protobuf.Timestamp updated_at = 12;
+	string email = 13;
+	uint64 user_id = 14;
+}
+
+message MerchantRequest {
+	int32 number_of_product = 1;
+	string email = 2;
+	PhoneNumber phone = 3;
+	RoleType role = 4;
+	uint64 user_id = 5;
+	int32 number_of_outlet = 6;
+	string business_name = 7;
+	// string logo = 6 will be on asset request;
+	// repeated Image images = 11 not when you are creating a merchant; TODO
+}
+
+message Merchant {
+	uint64 id = 1;
+	int32 number_of_product = 2;
+	RoleType role = 3;
+	string email = 4;
+	PhoneNumber phone = 5;
+	uint64 user_id = 6;
+	int32 number_of_outlet = 7;
+	string business_name = 8;
+	bool is_suspended = 9;
+	bool is_email_verified = 10;
+	google.protobuf.Timestamp created_at = 11;
+	google.protobuf.Timestamp updated_at = 12;
+	google.protobuf.Timestamp deleted_at = 13;
+	google.protobuf.Timestamp last_login = 14;
+}
+
+enum PhoneType {
+	MOBILE = 0;
+	HOME = 1;
+	WORK = 2;
+}
+
+// message Image {
+// 	uint64 id = 1;
+// 	string url = 2;
+// }
+
+message PhoneNumber {
+	string number = 1;
+	PhoneType type = 2;
+}
+
+enum RoleType {
+	SUPER_ADMIN = 0;
+	ADMIN = 1;
+	SUB_ADMIN = 2;
+	SALE_PERSON = 3;
+}
+
+message Response {
+	Merchant merchant = 1;
+	repeated Merchant merchants = 2;
+	bool Created = 3;
+	bool Deleted = 4;
+	bool Updated = 5;
+	Outlet outlet =6;
+	repeated Outlet outlets=7;
+	Terminal terminal = 8;
+	repeated Terminal terminals = 9;
+}
+
+message Request {}
+
+message CreateRequest {
+	MerchantRequest merchant = 1;
+	string password = 2;
+}
+
+message UpdateRequest {
+	MerchantRequest merchant = 1;
+	uint64 id = 2;
+}
+
+message GetIdRequest {
+	uint64 id = 1;
+}
+message GetOutletIdRequest {
+	uint64 id = 1;
+	uint64 merchant_id = 2;
+	uint64 user_id = 3;
+}
+
+message GetTerminalIdRequest {
+	uint64 id = 1;
+	uint64 merchant_id = 2;
+	uint64 user_id = 3;
+}
+
+message UpdateOutletRequest {
+	uint64 id = 1;
+	uint64 merchant_id = 2;
+	OutletRequest outlet = 3;
+	uint64 user_id = 4;
+}
+
+message UpdateTerminalRequest {
+	uint64 id = 1;
+	uint64 merchant_id = 2;
+	TerminalRequest terminal = 3;
+	uint64 user_id = 4;
+}
+
+message UpdatePasswordRequest {
+	uint64 merchant_id = 1;
+	string old_password = 2;
+	string new_password = 3;
+}
+
+message UpdatePasswordResponse {
+	bool updated_password = 1;
+}
