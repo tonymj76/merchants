@@ -1,0 +1,5 @@
+
+merchant-service
+sqltools_*
+../.vscode*
+*.log
