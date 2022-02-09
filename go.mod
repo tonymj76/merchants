@@ -13,8 +13,7 @@ require (
 	github.com/containerd/continuity v0.0.0-20200413184840-d3ef23f19fbb // indirect
 	github.com/dhui/dktest v0.3.2 // indirect
 	github.com/gin-contrib/cors v1.3.1
-	github.com/gin-gonic/gin v1.6.3
-	github.com/go-playground/validator/v10 v10.3.0 // indirect
+	github.com/gin-gonic/gin v1.7.0
 	github.com/gogo/protobuf v1.3.1 // indirect
 	github.com/golang-migrate/migrate/v4 v4.8.0
 	github.com/golang/protobuf v1.4.2
@@ -27,7 +26,7 @@ require (
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/ory/dockertest/v3 v3.6.0
 	github.com/sirupsen/logrus v1.6.0
-	golang.org/x/crypto v0.0.0-20200323165209-0ec3e9974c59
+	golang.org/x/crypto v0.0.0-20200622213623-75b288015ac9
 	golang.org/x/lint v0.0.0-20200130185559-910be7a94367 // indirect
 	golang.org/x/mod v0.2.0 // indirect
 	golang.org/x/net v0.0.0-20200513185701-a91f0712d120 // indirect
